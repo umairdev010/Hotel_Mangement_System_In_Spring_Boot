@@ -23,46 +23,45 @@ public class HotelController {
         Message message = hotelService.createHotel(hotel);
         Responses response = new Responses();
         response.setResponse("mainMessage", message);
-        if (!message.isSuccess()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-        return ResponseEntity.ok(response);
+        return parseResponse(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Responses> getHotel(@PathVariable int id){
+    public ResponseEntity<Responses> getHotel(@PathVariable int id) {
 
         Responses response = hotelService.getHotel(id);
-
-        Message message = (Message) response.getData("mainMessage");
-
-        if (!message.isSuccess()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-        return ResponseEntity.ok(response);
+        return parseResponse(response);
 
     }
 
     @GetMapping("/getall")
-    public ResponseEntity<Responses> getAllHotels(){
+    public ResponseEntity<Responses> getAllHotels() {
 
         Responses responses = hotelService.getAllHotels();
+        return parseResponse(responses);
 
-        Message message = (Message) responses.getData("mainMessage");
-
-        if (!message.isSuccess()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responses);
-        }
-        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/byname/{name}")
-    public ResponseEntity<Responses> getHotelByName(@PathVariable String name){
+    public ResponseEntity<Responses> getHotelByName(@PathVariable String name) {
 
         Responses responses = hotelService.getHotelByName(name);
+        return parseResponse(responses);
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Responses> deleteHotel(@PathVariable int id){
+        Responses responses = hotelService.deleteHotel(id);
+        return parseResponse(responses);
+    }
+
+
+    public ResponseEntity<Responses> parseResponse(Responses responses) {
+
         Message message = (Message) responses.getData("mainMessage");
 
-        if (!message.isSuccess()){
+        if (!message.isSuccess()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responses);
         }
         return ResponseEntity.ok(responses);

@@ -31,4 +31,8 @@ public class HotelService {
         return hotelRepository.getHotelByName(name);
     }
 
+    public Responses deleteHotel(int id){
+        return hotelRepository.deleteHotel(id);
+    }
+
 }

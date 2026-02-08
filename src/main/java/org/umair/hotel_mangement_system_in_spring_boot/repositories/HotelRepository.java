@@ -105,4 +105,22 @@ public class HotelRepository {
         }
     }
 
+    public Responses deleteHotel(int id){
+        Responses responses = new Responses();
+        try {
+            String sql = "DELETE FROM hotels WHERE id = ?";
+            int row = jdbcTemplate.update(sql,id);
+            if (row == 0){
+                responses.setResponse("mainMessage", new Message("There is no hotel for deletion ", false));
+                return responses;
+            }
+            responses.setResponse("mainMessage", new Message("Successfully delete hotel ", true));
+            return responses;
+        } catch (Exception e) {
+            responses.setResponse("mainMessage", new Message("Error is occured while deleting hotel " + e, false));
+            return responses;
+        }
+
+    }
+
 }
