@@ -1,7 +1,7 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
 public class Room {
-
+    private int id;
     private int room_number;
     private String name;
     private String type;
@@ -19,6 +19,14 @@ public class Room {
         this.price = price;
         this.availability = availability;
         this.hotel_id = hotel_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRoom_number() {
