@@ -32,6 +32,12 @@ public class RoomController {
         return parseResponse(responses);
     }
 
+    @GetMapping("/getbyid/{id}")
+    public ResponseEntity<Responses> getById(@PathVariable int id){
+        Responses responses = roomService.getBYid(id);
+        return parseResponse(responses);
+    }
+
     public ResponseEntity<Responses> parseResponse(Responses responses) {
 
         Message message = (Message) responses.getData("mainMessage");

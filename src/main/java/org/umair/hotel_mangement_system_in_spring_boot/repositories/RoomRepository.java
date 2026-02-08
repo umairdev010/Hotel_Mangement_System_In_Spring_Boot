@@ -93,4 +93,28 @@ public class RoomRepository {
 
     }
 
+    public Responses getById(int id){
+        Responses responses = new Responses();
+        try {
+
+            String sql = "SELECT * FROM rooms WHERE id = ?";
+            Room room = jdbcTemplate.queryForObject(sql,rowMapperRoom,id);
+            if (room == null){
+                responses.setResponse("mainMessage",new Message("THERE IS ERROR IN GETTING ROOM AND NO ROOM FOUND",false));
+                return responses;
+            }
+            Hotel hotel = jdbcTemplate.queryForObject("SELECT * FROM hotels WHERE id = ?",rowMapperHotel,room.getHotel_id());
+            if (hotel != null ){
+                room.setHotelDetails(hotel);
+            }
+            responses.setResponse("mainMessage",new Message("GETTING ROOM SUCCESSFUL",true));
+            responses.setResponse("Data",room);
+            return responses;
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message("THERE IS ERROR IN GETTING ROOM " + e,false));
+            return responses;
+        }
+
+    }
+
 }

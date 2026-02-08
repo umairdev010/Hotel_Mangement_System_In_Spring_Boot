@@ -10,16 +10,20 @@ public class RoomService {
 
     private RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository){
+    public RoomService(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
 
-    public Responses createRoom(Room room){
+    public Responses createRoom(Room room) {
         return roomRepository.createRoom(room);
     }
 
-    public Responses getAllRooms(){
+    public Responses getAllRooms() {
         return roomRepository.getAllRooms();
+    }
+
+    public Responses getBYid(int id) {
+        return roomRepository.getById(id);
     }
 
 }
