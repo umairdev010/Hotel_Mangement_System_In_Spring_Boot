@@ -18,4 +18,8 @@ public class RoomService {
         return roomRepository.createRoom(room);
     }
 
+    public Responses getAllRooms(){
+        return roomRepository.getAllRooms();
+    }
+
 }
