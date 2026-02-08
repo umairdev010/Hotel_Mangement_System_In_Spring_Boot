@@ -7,6 +7,8 @@ import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.List;
+
 @Repository
 public class RoomRepository {
 
@@ -46,5 +48,30 @@ public class RoomRepository {
 
     }
 
+
+    public Responses getAllRooms(){
+
+        Responses responses =new Responses();
+
+        try {
+
+            String sql = "SELECT * FROM rooms";
+
+            List<Room> roomList = jdbcTemplate.query(sql,rowMapper);
+
+            if (roomList.get(0) == null){
+                responses.setResponse("mainMessage",new Message("there is problem and no room in the DataBase",false));
+                return responses;
+            }
+                responses.setResponse("mainMessage",new Message("All Rooms successfully fetched",true));
+                responses.setResponse("Data",roomList);
+                return responses;
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message("there is error in getting rooms " + e,false));
+            return responses;
+        }
+
+
+    }
 
 }
