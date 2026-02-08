@@ -43,5 +43,17 @@ public class HotelController {
 
     }
 
+    @GetMapping("/getall")
+    public ResponseEntity<Responses> getAllHotels(){
+
+        Responses responses = hotelService.getAllHotels();
+
+        Message message = (Message) responses.getData("mainMessage");
+
+        if (!message.isSuccess()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responses);
+        }
+        return ResponseEntity.ok(responses);
+    }
 
 }

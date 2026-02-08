@@ -7,6 +7,8 @@ import org.umair.hotel_mangement_system_in_spring_boot.models.Hotel;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.List;
+
 @Repository
 public class HotelRepository {
 
@@ -62,6 +64,25 @@ public class HotelRepository {
             return responses;
         }
 
+    }
+
+    public Responses getAllHotels(){
+        Responses responses = new Responses();
+        try {
+            String sql = "SELECT * FROM hotels";
+            List<Hotel> hotelList = jdbcTemplate.query(sql,rowMapper);
+            if (hotelList.get(0) == null){
+                responses.setResponse("mainMessage",new Message("There is error in getting hotels and either it is empty",false));
+                return responses;
+            } else {
+                responses.setResponse("mainMessage",new Message("Data of all is Hotels is successfully fetched",true));
+                responses.setResponse("Data",hotelList);
+                return responses;
+            }
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message(e.getMessage(), false));
+            return responses;
+        }
     }
 
 }

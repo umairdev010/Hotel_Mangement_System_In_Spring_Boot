@@ -23,4 +23,8 @@ public class HotelService {
         return hotelRepository.getHotel(id);
     }
 
+    public Responses getAllHotels(){
+        return hotelRepository.getAllHotels();
+    }
+
 }
