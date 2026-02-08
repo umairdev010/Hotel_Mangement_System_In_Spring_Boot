@@ -1,35 +1,55 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.util.Date;
+
+@Entity
+@Table(name = "bookings")
 public class Booking {
 
-    private String room_id;
-    private String customer_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "room_id",
+            referencedColumnName = "id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_booking_room")
+    )
+    private Room room;
+
+    // Many bookings can be for one customer
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "customer_id",
+            referencedColumnName = "id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_booking_customer")
+    )
+    private Customer customer;
     private LocalDate check_in_date;
     private LocalDate check_out_date;
     private float price;
     private String status;
+    @CreationTimestamp
+    private Date createdAt;
 
     public Booking() {
     }
 
-    public Booking(String room_id, String customer_id, LocalDate check_in_date, LocalDate check_out_date, float price, String status) {
-        this.room_id = room_id;
-        this.customer_id = customer_id;
+    public Booking(Room room_id, Customer customer_id, LocalDate check_in_date, LocalDate check_out_date, float price, String status) {
+        this.room = room_id;
+        this.customer = customer_id;
         this.check_in_date = check_in_date;
         this.check_out_date = check_out_date;
         this.price = price;
         this.status = status;
     }
 
-    public String getRoom_id() {
-        return room_id;
-    }
-
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id;
-    }
 
     public LocalDate getCheck_in_date() {
         return check_in_date;
@@ -39,13 +59,6 @@ public class Booking {
         this.check_in_date = check_in_date;
     }
 
-    public String getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(String customer_id) {
-        this.customer_id = customer_id;
-    }
 
     public LocalDate getCheck_out_date() {
         return check_out_date;
@@ -71,11 +84,35 @@ public class Booking {
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
-                "room_id='" + room_id + '\'' +
-                ", customer_id='" + customer_id + '\'' +
+                "room='" + room + '\'' +
+                ", customer='" + customer + '\'' +
                 ", check_in_date=" + check_in_date +
                 ", check_out_date=" + check_out_date +
                 ", price=" + price +

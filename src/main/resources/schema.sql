@@ -20,25 +20,19 @@ CREATE TABLE IF NOT EXISTS rooms(
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
---creating customer table
-CREATE TABLE IF NOT EXISTS customers(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
 --create table for bookings
-CREATE TABLE IF NOT EXISTS bookings(
-    id SERIAL PRIMARY KEY,
-    room_id INT NOT NULL,
-    customer_id INT NOT NULL,
-    check_in_date DATE NOT NULL,
-    check_out_date DATE NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    status VARCHAR(10) CHECK(status IN ('PENDING','CONFIRMED')),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (room_id) REFERENCES rooms(id)
-    ON DELETE CASCADE,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-    ON DELETE CASCADE
-);
+-- CREATE TABLE IF NOT EXISTS bookings(
+--     id SERIAL PRIMARY KEY,
+--     room_id INT NOT NULL,
+--     customer_id INT NOT NULL,
+--     check_in_date DATE NOT NULL,
+--     check_out_date DATE NOT NULL,
+--     price DECIMAL(10,2) NOT NULL,
+--     status VARCHAR(10) CHECK(status IN ('PENDING','CONFIRMED')),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (room_id) REFERENCES rooms(id)
+--     ON DELETE CASCADE,
+--     FOREIGN KEY (customer_id) REFERENCES customers(id)
+--     ON DELETE CASCADE
+-- );
