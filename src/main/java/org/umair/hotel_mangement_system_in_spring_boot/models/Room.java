@@ -1,5 +1,8 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
     private int id;
     private int room_number;
@@ -8,6 +11,7 @@ public class Room {
     private float price;
     private boolean availability;
     private int hotel_id;
+    private Hotel hotelDetails;
 
     public Room() {
     }
@@ -19,6 +23,14 @@ public class Room {
         this.price = price;
         this.availability = availability;
         this.hotel_id = hotel_id;
+    }
+
+    public Hotel getHotelDetails() {
+        return hotelDetails;
+    }
+
+    public void setHotelDetails(Hotel hotelDetails) {
+        this.hotelDetails = hotelDetails;
     }
 
     public int getId() {

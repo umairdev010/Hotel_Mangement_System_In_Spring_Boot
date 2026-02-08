@@ -3,10 +3,12 @@ package org.umair.hotel_mangement_system_in_spring_boot.repositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.umair.hotel_mangement_system_in_spring_boot.models.Hotel;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -18,7 +20,7 @@ public class RoomRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    RowMapper<Room> rowMapper = ((rs, rowNum) -> {
+    RowMapper<Room> rowMapperRoom = ((rs, rowNum) -> {
         Room room = new Room();
         room.setName(rs.getString("name"));
         room.setRoom_number(rs.getInt("room_number"));
@@ -28,6 +30,15 @@ public class RoomRepository {
         room.setHotel_id(rs.getInt("hotel_id"));
         room.setId(rs.getInt("id"));
         return room;
+    });
+
+    RowMapper<Hotel> rowMapperHotel = ((rs, rowNum) -> {
+        Hotel hotel = new Hotel();
+        hotel.setId(rs.getInt("id"));
+        hotel.setName(rs.getString("name"));
+        hotel.setLocation(rs.getString("location"));
+        hotel.setDescription(rs.getString("description"));
+        return hotel;
     });
 
     public Responses createRoom(Room room) {
@@ -57,12 +68,20 @@ public class RoomRepository {
 
             String sql = "SELECT * FROM rooms";
 
-            List<Room> roomList = jdbcTemplate.query(sql,rowMapper);
+            List<Room> roomList = jdbcTemplate.query(sql,rowMapperRoom);
 
             if (roomList.get(0) == null){
                 responses.setResponse("mainMessage",new Message("there is problem and no room in the DataBase",false));
                 return responses;
             }
+                for (Room room : roomList){
+                    int id = room.getHotel_id();
+                    String sqlroom = "SELECT * FROM hotels WHERE id = ?";
+                    Hotel hotel = jdbcTemplate.queryForObject(sqlroom, rowMapperHotel, id);
+                    if (hotel != null){
+                        room.setHotelDetails(hotel);
+                    }
+                }
                 responses.setResponse("mainMessage",new Message("All Rooms successfully fetched",true));
                 responses.setResponse("Data",roomList);
                 return responses;
