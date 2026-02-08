@@ -11,20 +11,24 @@ public class HotelService {
 
     private HotelRepository hotelRepository;
 
-    public HotelService(HotelRepository hotelRepository){
+    public HotelService(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;
     }
 
-    public Message createHotel(Hotel hotel){
+    public Message createHotel(Hotel hotel) {
         return hotelRepository.createHotel(hotel);
     }
 
-    public Responses getHotel(int id){
+    public Responses getHotel(int id) {
         return hotelRepository.getHotel(id);
     }
 
-    public Responses getAllHotels(){
+    public Responses getAllHotels() {
         return hotelRepository.getAllHotels();
+    }
+
+    public Responses getHotelByName(String name){
+        return hotelRepository.getHotelByName(name);
     }
 
 }

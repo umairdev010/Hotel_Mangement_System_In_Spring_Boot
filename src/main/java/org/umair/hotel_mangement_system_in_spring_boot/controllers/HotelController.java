@@ -56,4 +56,17 @@ public class HotelController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/byname/{name}")
+    public ResponseEntity<Responses> getHotelByName(@PathVariable String name){
+
+        Responses responses = hotelService.getHotelByName(name);
+        Message message = (Message) responses.getData("mainMessage");
+
+        if (!message.isSuccess()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responses);
+        }
+        return ResponseEntity.ok(responses);
+
+    }
+
 }

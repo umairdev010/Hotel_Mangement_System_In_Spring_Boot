@@ -85,4 +85,24 @@ public class HotelRepository {
         }
     }
 
+    public Responses getHotelByName(String name){
+        Responses responses = new Responses();
+        try {
+
+            String sql = "SELECT * FROM hotels WHERE name = ?";
+            List<Hotel> hotels = jdbcTemplate.query(sql,rowMapper,name);
+            if (hotels.get(0) == null){
+                responses.setResponse("mainMessage",new Message("There is no hotel in dataBase with name " + name,false));
+                return responses;
+            }
+            responses.setResponse("mainMessage",new Message("Hotel get successfully",true));
+            responses.setResponse("Data",hotels);
+            return responses;
+
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message(e.getMessage(), false));
+            return responses;
+        }
+    }
+
 }
