@@ -120,7 +120,14 @@ public class RoomRepository {
     public Responses deleteRoom(int id){
         Responses responses = new Responses();
         try {
-
+            String sql = "DELETE FROM rooms WHERE id = ?";
+            int row = jdbcTemplate.update(sql,id);
+            if (row == 0){
+                responses.setResponse("mainMessage",new Message("THERE IS ERROR IN DELEING ROOM AND NO ROOM FOUND",false));
+                return responses;
+            }
+                responses.setResponse("mainMessage",new Message("ROOM DELETED",true));
+                return responses;
         } catch (Exception e) {
             responses.setResponse("mainMessage",new Message("THERE IS ERROR IN DELETING ROOM " + e,false));
             return responses;
