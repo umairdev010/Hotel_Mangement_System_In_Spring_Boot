@@ -26,4 +26,8 @@ public class RoomService {
         return roomRepository.getById(id);
     }
 
+    public Responses roomDelete(int id){
+        return roomRepository.deleteRoom(id);
+    }
+
 }

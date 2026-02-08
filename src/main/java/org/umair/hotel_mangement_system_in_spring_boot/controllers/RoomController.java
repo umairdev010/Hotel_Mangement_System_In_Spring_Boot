@@ -38,6 +38,12 @@ public class RoomController {
         return parseResponse(responses);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Responses> deleteRoom(@PathVariable int id){
+        Responses responses = roomService.roomDelete(id);
+        return parseResponse(responses);
+    }
+
     public ResponseEntity<Responses> parseResponse(Responses responses) {
 
         Message message = (Message) responses.getData("mainMessage");
