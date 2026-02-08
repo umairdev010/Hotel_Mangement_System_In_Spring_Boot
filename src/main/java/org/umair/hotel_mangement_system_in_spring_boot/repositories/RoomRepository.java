@@ -117,4 +117,15 @@ public class RoomRepository {
 
     }
 
+    public Responses deleteRoom(int id){
+        Responses responses = new Responses();
+        try {
+
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message("THERE IS ERROR IN DELETING ROOM " + e,false));
+            return responses;
+        }
+
+    }
+
 }
