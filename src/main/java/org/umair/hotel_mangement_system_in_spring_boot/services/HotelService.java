@@ -64,13 +64,32 @@ public class HotelService {
     }
 
     public Responses getHotelByName(String name){
-        responses.setResponse("mainMessage",new Message("Hotel found",true));
-        return responses;
+
+        try {
+            List<Hotel> hotelList = hotelRepository.findByName(name);
+            if (hotelList.get(0) == null) throw new Exception("There is no hotel with this name");
+            responses.setResponse("mainMessage",new Message("Hotel found",true));
+            responses.setResponse("Data",hotelList);
+            return responses;
+        } catch (Exception e) {
+            Responses newRes = new Responses();
+            newRes.setResponse("mainMessage",new Message("Error in getting hotel  = " + e,false));
+            return newRes;
+        }
+
     }
 
     public Responses deleteHotel(int id){
-        responses.setResponse("mainMessage",new Message("Hotel found",true));
-        return responses;
+
+        try {
+            hotelRepository.deleteById(id);
+            responses.setResponse("mainMessage",new Message("Hotel Deleted",true));
+            return responses;
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message("Error in Deleting hotel  = " + e,false));
+            return responses;
+        }
+
     }
 
 }
