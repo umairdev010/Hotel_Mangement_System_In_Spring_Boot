@@ -12,10 +12,13 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String location;
 
+    @Column(nullable = false)
     private String description;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)

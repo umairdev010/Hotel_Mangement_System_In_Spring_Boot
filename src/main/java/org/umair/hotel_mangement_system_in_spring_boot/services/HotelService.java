@@ -20,22 +20,47 @@ public class HotelService {
     }
 
     public Responses createHotel(Hotel hotel) {
-        Hotel hotel1 = hotelRepository.save(hotel);
-        responses.setResponse("Data",hotel1);
-        responses.setResponse("mainMessage",new Message("Hotel created",true));
-        return responses;
+
+       try {
+           Hotel hotel1 = hotelRepository.save(hotel);
+           responses.setResponse("Data",hotel1);
+           responses.setResponse("mainMessage",new Message("Hotel created",true));
+           return responses;
+       } catch (Exception e) {
+           responses.setResponse("mainMessage",new Message("Error in creating hotel  = " + e,false));
+           return responses;
+       }
+
     }
 
     public Responses getHotel(int id) {
-        Hotel hotel = hotelRepository.findById(id);
-        responses.setResponse("mainMessage",new Message("Hotel found",true));
-        return responses;
+
+       try {
+           Hotel hotel = hotelRepository.findById(id);
+           if (hotel == null) throw new Exception("There is no hotel found by this id");
+           responses.setResponse("Data",hotel);
+           responses.setResponse("mainMessage",new Message("Hotel found",true));
+           return responses;
+       } catch (Exception e) {
+           responses.setResponse("mainMessage",new Message("Error in getting hotel  = " + e,false));
+           return responses;
+       }
+
     }
 
     public Responses getAllHotels() {
-        List<Hotel> hotelList = hotelRepository.findAll();
-        responses.setResponse("mainMessage",new Message("Hotel found",true));
-        return responses;
+
+        try {
+            List<Hotel> hotelList = hotelRepository.findAll();
+            if (hotelList.get(0) == null) throw  new Exception("There is  nothing in the table to get");
+            responses.setResponse("mainMessage",new Message("All Hotels found",true));
+            responses.setResponse("Data",hotelList);
+            return responses;
+        } catch (Exception e) {
+            responses.setResponse("mainMessage",new Message("Error in getting all hotels  = " + e,false));
+            return responses;
+        }
+
     }
 
     public Responses getHotelByName(String name){
