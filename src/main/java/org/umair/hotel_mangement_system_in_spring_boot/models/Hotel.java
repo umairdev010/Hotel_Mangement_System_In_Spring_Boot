@@ -1,11 +1,25 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "hotels")
 public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
     private String location;
+
     private String description;
 
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private List<Room> rooms = new ArrayList<>();
 
     public Hotel() {
     }

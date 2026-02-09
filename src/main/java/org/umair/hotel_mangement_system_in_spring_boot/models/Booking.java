@@ -13,6 +13,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //TODO  THERE IS ERROR BECAUSE ROOM IS NOT AN ENTITY. SO I HAVE TO CHANGE ROOM TO ENTITY
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "room_id",

@@ -20,8 +20,6 @@ public class Customer {
             insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Booking> bookings = new ArrayList<>();
 
 
 
@@ -42,13 +40,6 @@ public class Customer {
         this.id = id;
     }
 
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
 
     public String getName() {
         return name;

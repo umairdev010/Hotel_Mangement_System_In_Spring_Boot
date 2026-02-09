@@ -1,37 +1,40 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "rooms")
 public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int room_number;
     private String name;
     private String type;
     private float price;
     private boolean availability;
-    private int hotel_id;
-    private Hotel hotelDetails;
+    @ManyToOne
+    @JoinColumn(
+            name = "hotel_id",
+            nullable = false
+    )
+    private Hotel hotel;
 
     public Room() {
     }
 
-    public Room(int room_number, String name, String type, float price, boolean availability, int hotel_id) {
+    public Room(int room_number, String name, String type, float price, boolean availability, Hotel hotel) {
         this.room_number = room_number;
         this.name = name;
         this.type = type;
         this.price = price;
         this.availability = availability;
-        this.hotel_id = hotel_id;
+        this.hotel = hotel;
     }
 
-    public Hotel getHotelDetails() {
-        return hotelDetails;
-    }
-
-    public void setHotelDetails(Hotel hotelDetails) {
-        this.hotelDetails = hotelDetails;
-    }
 
     public int getId() {
         return id;
@@ -81,12 +84,12 @@ public class Room {
         this.availability = availability;
     }
 
-    public int getHotel_id() {
-        return hotel_id;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setHotel_id(int hotel_id) {
-        this.hotel_id = hotel_id;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     @Override
@@ -97,7 +100,7 @@ public class Room {
                 ", type='" + type + '\'' +
                 ", price=" + price +
                 ", availability=" + availability +
-                ", hotel_id=" + hotel_id +
+                ", hotel=" + hotel +
                 '}';
     }
 }
