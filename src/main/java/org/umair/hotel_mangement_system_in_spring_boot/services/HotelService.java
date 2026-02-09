@@ -6,8 +6,12 @@ import org.umair.hotel_mangement_system_in_spring_boot.repositories.HotelReposit
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.List;
+
 @Service
 public class HotelService {
+
+    Responses responses = new Responses();
 
     private HotelRepository hotelRepository;
 
@@ -15,24 +19,33 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
-    public Message createHotel(Hotel hotel) {
-        return hotelRepository.createHotel(hotel);
+    public Responses createHotel(Hotel hotel) {
+        Hotel hotel1 = hotelRepository.save(hotel);
+        responses.setResponse("Data",hotel1);
+        responses.setResponse("mainMessage",new Message("Hotel created",true));
+        return responses;
     }
 
     public Responses getHotel(int id) {
-        return hotelRepository.getHotel(id);
+        Hotel hotel = hotelRepository.findById(id);
+        responses.setResponse("mainMessage",new Message("Hotel found",true));
+        return responses;
     }
 
     public Responses getAllHotels() {
-        return hotelRepository.getAllHotels();
+        List<Hotel> hotelList = hotelRepository.findAll();
+        responses.setResponse("mainMessage",new Message("Hotel found",true));
+        return responses;
     }
 
     public Responses getHotelByName(String name){
-        return hotelRepository.getHotelByName(name);
+        responses.setResponse("mainMessage",new Message("Hotel found",true));
+        return responses;
     }
 
     public Responses deleteHotel(int id){
-        return hotelRepository.deleteHotel(id);
+        responses.setResponse("mainMessage",new Message("Hotel found",true));
+        return responses;
     }
 
 }

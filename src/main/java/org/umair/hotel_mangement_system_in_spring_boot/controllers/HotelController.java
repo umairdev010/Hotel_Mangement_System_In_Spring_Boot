@@ -20,10 +20,8 @@ public class HotelController {
 
     @PostMapping("/create")
     public ResponseEntity<Responses> createHotel(@RequestBody Hotel hotel) {
-        Message message = hotelService.createHotel(hotel);
-        Responses response = new Responses();
-        response.setResponse("mainMessage", message);
-        return parseResponse(response);
+        Responses responses = hotelService.createHotel(hotel);
+        return parseResponse(responses);
     }
 
     @GetMapping("/{id}")
