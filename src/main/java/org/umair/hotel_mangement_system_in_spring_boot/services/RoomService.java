@@ -6,6 +6,8 @@ import org.umair.hotel_mangement_system_in_spring_boot.repositories.RoomReposito
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.List;
+
 @Service
 public class RoomService {
 
@@ -32,8 +34,12 @@ public class RoomService {
     public Responses getAllRooms() {
         try {
             Responses responses = new Responses();
-
-
+            List<Room> roomList = roomRepository.findAll();
+            if (roomList.get(0) == null ){
+                throw new Exception("There is no room in database.");
+            }
+            responses.setResponse("Data",roomList);
+            responses.setResponse("mainMessage", new Message("Hotel get successfully", true));
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
