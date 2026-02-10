@@ -11,10 +11,15 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private int room_number;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String type;
-    private float price;
+    @Column(nullable = false)
+    private double price;
+    @Column(nullable = false)
     private boolean availability;
     @ManyToOne
     @JoinColumn(
@@ -26,7 +31,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int room_number, String name, String type, float price, boolean availability, Hotel hotel) {
+    public Room(int room_number, String name, String type, double price, boolean availability, Hotel hotel) {
         this.room_number = room_number;
         this.name = name;
         this.type = type;
@@ -68,11 +73,11 @@ public class Room {
         this.type = type;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

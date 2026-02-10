@@ -3,10 +3,13 @@ package org.umair.hotel_mangement_system_in_spring_boot.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.umair.hotel_mangement_system_in_spring_boot.models.Hotel;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
 import org.umair.hotel_mangement_system_in_spring_boot.services.RoomService;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
+import tools.jackson.databind.JsonNode;
+
 
 @RestController
 @RequestMapping("/api/room")
@@ -19,9 +22,18 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Responses> createRoom(@RequestBody Room room) {
+    public ResponseEntity<Responses> createRoom(@RequestBody JsonNode room) {
+        String name = room.get("name").asText();
+        String type = room.get("type").asText();
+        double price = room.get("price").asDouble();
+        boolean availability = room.get("availability").asBoolean();
+        int roomNumber = room.get("room_number").asInt();
+        int hotelId = room.get("hotel_id").asInt();
+        Hotel hotel = new Hotel();
+        hotel.setId(hotelId);
+        Room room1 = new Room(roomNumber,name,type,price,availability,hotel);
 
-        Responses responses = roomService.createRoom(room);
+        Responses responses = roomService.createRoom(room1);
         return parseResponse(responses);
 
     }
