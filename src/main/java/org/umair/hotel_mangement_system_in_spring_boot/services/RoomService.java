@@ -74,8 +74,7 @@ public class RoomService {
                 throw new Exception("There is no room with this id");
             }
             roomRepository.delete(room);
-            responses.setResponse("mainMessage", new Message("Room deleted", true);
-
+            responses.setResponse("mainMessage", new Message("Room deleted", true));
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
