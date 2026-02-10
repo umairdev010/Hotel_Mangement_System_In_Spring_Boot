@@ -1,6 +1,7 @@
 package org.umair.hotel_mangement_system_in_spring_boot.services;
 
 import org.springframework.stereotype.Service;
+import org.umair.hotel_mangement_system_in_spring_boot.models.Hotel;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
 import org.umair.hotel_mangement_system_in_spring_boot.repositories.RoomRepository;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
@@ -26,7 +27,7 @@ public class RoomService {
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
-            responses.setResponse("mainMessage", new Message("Error in  hotel  = " + e, false));
+            responses.setResponse("mainMessage", new Message("Error in  Room  = " + e, false));
             return responses;
         }
     }
@@ -39,11 +40,11 @@ public class RoomService {
                 throw new Exception("There is no room in database.");
             }
             responses.setResponse("Data",roomList);
-            responses.setResponse("mainMessage", new Message("Hotel get successfully", true));
+            responses.setResponse("mainMessage", new Message("Rooms get successfully", true));
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
-            responses.setResponse("mainMessage", new Message("Error in  hotel  = " + e, false));
+            responses.setResponse("mainMessage", new Message("Error in  Room  = " + e, false));
             return responses;
         }
     }
@@ -51,12 +52,16 @@ public class RoomService {
     public Responses getBYid(int id) {
         try {
             Responses responses = new Responses();
-
-
+            Room room = roomRepository.findById(id);
+            if (room == null){
+                throw new Exception("There is no room with this id");
+            }
+            responses.setResponse("Data",room);
+            responses.setResponse("mainMessage", new Message("Room get successfully " , true));
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
-            responses.setResponse("mainMessage", new Message("Error in  hotel  = " + e, false));
+            responses.setResponse("mainMessage", new Message("Error in  Room  = " + e, false));
             return responses;
         }
     }
@@ -64,12 +69,17 @@ public class RoomService {
     public Responses roomDelete(int id) {
         try {
             Responses responses = new Responses();
-
+            Room room = roomRepository.findById(id);
+            if (room == null){
+                throw new Exception("There is no room with this id");
+            }
+            roomRepository.delete(room);
+            responses.setResponse("mainMessage", new Message("Room deleted", true);
 
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
-            responses.setResponse("mainMessage", new Message("Error in  hotel  = " + e, false));
+            responses.setResponse("mainMessage", new Message("Error in  Room  = " + e, false));
             return responses;
         }
     }

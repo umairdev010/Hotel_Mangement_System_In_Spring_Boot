@@ -8,6 +8,6 @@ import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-
+    Room findById(int id);
 
 }
