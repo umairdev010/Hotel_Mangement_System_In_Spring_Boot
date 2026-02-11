@@ -36,7 +36,7 @@ public class CustomerController {
         return parseResponse(responses);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Responses>  deleteCustomer(@PathVariable int id){
         Responses responses = customerService.deleteCustomer(id);
         return parseResponse(responses);
