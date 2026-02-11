@@ -8,5 +8,6 @@ import org.umair.hotel_mangement_system_in_spring_boot.models.Customer;
 public interface CustomerRepository extends JpaRepository {
 
     Customer findById(int id);
+    Customer save(Customer customer);
 
 }
