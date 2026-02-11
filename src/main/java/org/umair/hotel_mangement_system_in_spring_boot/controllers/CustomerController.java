@@ -4,10 +4,7 @@ package org.umair.hotel_mangement_system_in_spring_boot.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Customer;
 import org.umair.hotel_mangement_system_in_spring_boot.services.CustomerService;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
@@ -24,6 +21,24 @@ public class CustomerController {
     public ResponseEntity<Responses> createCustomer(@RequestBody Customer customer){
 
         Responses responses = customerService.createCustomer(customer);
+        return parseResponse(responses);
+    }
+
+    @GetMapping
+    public ResponseEntity<Responses>  getAllCustomer(){
+        Responses responses = customerService.getAllCustomer();
+        return parseResponse(responses);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Responses>  getByIdCustomer(@PathVariable int id){
+        Responses responses = customerService.getCustomerById(id);
+        return parseResponse(responses);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Responses>  deleteCustomer(@PathVariable int id){
+        Responses responses = customerService.deleteCustomer(id);
         return parseResponse(responses);
     }
 
