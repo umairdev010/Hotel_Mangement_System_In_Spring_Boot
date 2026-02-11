@@ -1,7 +1,12 @@
 package org.umair.hotel_mangement_system_in_spring_boot.repositories;
 
-public class CustomerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.umair.hotel_mangement_system_in_spring_boot.models.Customer;
 
+@Repository
+public interface CustomerRepository extends JpaRepository {
 
+    Customer findById(int id);
 
 }
