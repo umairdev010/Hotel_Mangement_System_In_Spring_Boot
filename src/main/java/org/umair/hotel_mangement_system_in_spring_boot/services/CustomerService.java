@@ -29,4 +29,47 @@ public class CustomerService {
 
     }
 
+
+    public Responses getAllCustomer(){
+
+        try {
+            Responses responses = new Responses();
+
+
+        } catch (Exception e) {
+            Responses response = new Responses();
+            response.setResponse("mainMessage",new Message("Error occurred in the customer = " + e,false));
+            return response;
+        }
+
+    }
+
+    public Responses getCustomerById(int id){
+
+        try {
+            Responses responses = new Responses();
+
+
+        } catch (Exception e) {
+            Responses response = new Responses();
+            response.setResponse("mainMessage",new Message("Error occurred in the customer = " + e,false));
+            return response;
+        }
+
+    }
+
+    public Responses deleteCustomer(int id){
+
+        try {
+            Responses responses = new Responses();
+
+
+        } catch (Exception e) {
+            Responses response = new Responses();
+            response.setResponse("mainMessage",new Message("Error occurred in the customer = " + e,false));
+            return response;
+        }
+
+    }
+
 }
