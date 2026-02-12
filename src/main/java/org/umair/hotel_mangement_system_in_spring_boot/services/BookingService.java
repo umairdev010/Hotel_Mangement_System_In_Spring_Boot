@@ -11,7 +11,7 @@ import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 public class BookingService {
 
     @Autowired
-    BookingRepostory bookingRepostory;
+    public BookingRepostory bookingRepostory;
 
     public Responses createBooking(Booking booking){
 
