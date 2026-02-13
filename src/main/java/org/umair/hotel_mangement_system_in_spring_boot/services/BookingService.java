@@ -7,6 +7,8 @@ import org.umair.hotel_mangement_system_in_spring_boot.repositories.BookingRepos
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Message;
 import org.umair.hotel_mangement_system_in_spring_boot.utility.Responses;
 
+import java.util.List;
+
 @Service
 public class BookingService {
 
@@ -27,6 +29,24 @@ public class BookingService {
         } catch (Exception e) {
             Responses responses = new Responses();
             responses.setResponse("mainMessage",new Message("There is error in Booking = " + e,false));
+            return responses;
+        }
+
+    }
+
+    public Responses getAllBookings(){
+
+        try {
+            Responses responses = new Responses();
+            List<Booking> bookingList = bookingRepostory.findAll();
+            if (bookingList.get(0) == null) {
+                throw new Exception("There is no booking in the database");
+            }
+            responses.setResponse("Data",bookingList);
+            responses.setResponse("mainMessage",new Message("All Bookings Founded",true));
+        } catch (Exception e) {
+            Responses responses = new Responses();
+            responses.setResponse("mainMessage",new Message("There is error in getting all bookings as = " + e,false));
             return responses;
         }
 
