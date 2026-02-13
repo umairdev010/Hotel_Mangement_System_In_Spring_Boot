@@ -44,6 +44,7 @@ public class BookingService {
             }
             responses.setResponse("Data",bookingList);
             responses.setResponse("mainMessage",new Message("All Bookings Founded",true));
+            return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
             responses.setResponse("mainMessage",new Message("There is error in getting all bookings as = " + e,false));

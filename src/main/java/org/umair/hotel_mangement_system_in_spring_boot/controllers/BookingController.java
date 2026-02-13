@@ -3,10 +3,7 @@ package org.umair.hotel_mangement_system_in_spring_boot.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Booking;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Customer;
 import org.umair.hotel_mangement_system_in_spring_boot.models.Room;
@@ -45,6 +42,12 @@ public class BookingController {
             responses.setResponse("mainMessage",new Message("There is an error in creating booking as = " + e,false));
             return parseResponse(responses);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<Responses> getAllBookings(){
+        Responses responses = bookingService.getAllBookings();
+        return parseResponse(responses);
     }
 
     public ResponseEntity<Responses> parseResponse(Responses responses){
