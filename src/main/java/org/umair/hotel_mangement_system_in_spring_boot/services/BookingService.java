@@ -83,6 +83,9 @@ public class BookingService {
             if (booking == null){
                 throw new Exception("There is no Booking with is id.");
             }
+            bookingRepostory.delete(booking);
+            responses.setResponse("mainMessage",new Message("Booking Deleted. ",true));
+            return responses;
 
         } catch (Exception e) {
             Responses responses = new Responses();
