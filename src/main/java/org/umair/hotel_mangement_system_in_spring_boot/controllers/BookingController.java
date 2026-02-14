@@ -50,7 +50,13 @@ public class BookingController {
         return parseResponse(responses);
     }
 
+    @GetMapping("/byid/{id}")
+    public ResponseEntity<Responses> getBookingById(@PathVariable int id){
 
+        Responses responses = bookingService.getBookingById(id);
+        return parseResponse(responses);
+
+    }
 
 
     public ResponseEntity<Responses> parseResponse(Responses responses){

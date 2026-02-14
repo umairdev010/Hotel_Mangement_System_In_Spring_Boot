@@ -63,7 +63,8 @@ public class BookingService {
                 throw new Exception("There is no booking for this id");
             }
             responses.setResponse("Data",booking);
-
+            responses.setResponse("mainMessage",new Message("Booking Found",true));
+            return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
             responses.setResponse("mainMessage",new Message("There is error ocurred in booking = " + e,false));
