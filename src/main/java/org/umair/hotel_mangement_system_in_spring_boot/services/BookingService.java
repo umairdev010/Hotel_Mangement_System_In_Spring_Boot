@@ -53,4 +53,25 @@ public class BookingService {
 
     }
 
+    public Responses getBookingById(int id){
+
+        try {
+
+            Responses responses = new Responses();
+            Booking booking = bookingRepostory.findById(id);
+            if (booking == null){
+                throw new Exception("There is no booking for this id");
+            }
+            responses.setResponse("Data",booking);
+
+        } catch (Exception e) {
+            Responses responses = new Responses();
+            responses.setResponse("mainMessage",new Message("There is error ocurred in booking = " + e,false));
+            return responses;
+        }
+
+    }
+
+
+
 }
