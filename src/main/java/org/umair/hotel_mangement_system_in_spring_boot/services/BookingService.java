@@ -74,5 +74,21 @@ public class BookingService {
     }
 
 
+    public Responses deleteByID(int id) {
 
+        try {
+
+            Responses responses = new Responses();
+            Booking booking = bookingRepostory.findById(id);
+            if (booking == null){
+                throw new Exception("There is no Booking with is id.");
+            }
+
+        } catch (Exception e) {
+            Responses responses = new Responses();
+            responses.setResponse("mainMessage",new Message("There is error occurred in booking = " + e,false));
+            return responses;
+        }
+
+    }
 }

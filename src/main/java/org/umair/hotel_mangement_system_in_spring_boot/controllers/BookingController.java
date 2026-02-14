@@ -50,7 +50,7 @@ public class BookingController {
         return parseResponse(responses);
     }
 
-    @GetMapping("/byid/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Responses> getBookingById(@PathVariable int id){
 
         Responses responses = bookingService.getBookingById(id);
@@ -58,6 +58,11 @@ public class BookingController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Responses> deleteByid(@PathVariable int id){
+        Responses responses = bookingService.deleteByID(id);
+        return parseResponse(responses);
+    }
 
     public ResponseEntity<Responses> parseResponse(Responses responses){
 
