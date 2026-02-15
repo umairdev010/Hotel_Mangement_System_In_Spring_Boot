@@ -21,8 +21,8 @@ public class Hotel {
     @Column(nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    private List<Room> rooms = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Room> roomList;
 
     public Hotel() {
     }
@@ -63,6 +63,14 @@ public class Hotel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 
     @Override

@@ -15,6 +15,8 @@ public class Customer {
     private int id;
     private String name;
     private String email;
+    @OneToMany
+    private List<Booking> bookingList;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false,
             insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
