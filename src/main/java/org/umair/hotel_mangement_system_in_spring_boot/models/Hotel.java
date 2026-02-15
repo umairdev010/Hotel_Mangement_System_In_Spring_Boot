@@ -1,5 +1,6 @@
 package org.umair.hotel_mangement_system_in_spring_boot.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ public class Hotel {
     @Column(nullable = false)
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Room> roomList;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Room> roomList = new ArrayList<>();
 
     public Hotel() {
     }
@@ -67,6 +69,16 @@ public class Hotel {
 
     public List<Room> getRoomList() {
         return roomList;
+    }
+
+    public void addRoom(Room room) {
+        roomList.add(room);
+        room.setHotel(this);
+    }
+
+    public void removeRoom(Room room) {
+        roomList.remove(room);
+        room.setHotel(null);
     }
 
     public void setRoomList(List<Room> roomList) {

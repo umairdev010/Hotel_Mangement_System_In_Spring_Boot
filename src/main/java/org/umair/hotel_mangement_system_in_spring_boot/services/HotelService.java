@@ -58,6 +58,7 @@ public class HotelService {
             if (hotelList.get(0) == null) throw  new Exception("There is  nothing in the table to get");
             responses.setResponse("mainMessage",new Message("All Hotels found",true));
             responses.setResponse("Data",hotelList);
+            System.out.println(hotelList.get(0).getRoomList());
             return responses;
         } catch (Exception e) {
             Responses responses = new Responses();
